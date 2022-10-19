@@ -1,9 +1,16 @@
-import { Rental } from '../model/Rental.js';
+import {
+    getAllRentals,
+    getRentalById,
+    newRental,
+    removeRental,
+    setNewDataRental,
+} from '../repository/rentalRepository.js';
 
 export const getRental = async (req, res) => {
     try {
         const { id } = req.params;
-        const rental = await Rental.findByPk(id);
+        const rental = await getRentalById(id);
+        console.log(rental);
         res.status(200).send(rental);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -12,8 +19,8 @@ export const getRental = async (req, res) => {
 
 export const getRentals = async (req, res) => {
     try {
-        const allRental = await Rental.findAll();
-        res.status(200).send(allRental);
+        const allRentals = await getAllRentals();
+        res.status(200).send(allRentals);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -22,8 +29,8 @@ export const getRentals = async (req, res) => {
 export const createRental = async (req, res) => {
     try {
         const data = req.body;
-        const newRental = await Rental.create({ ...data });
-        res.status(201).send(newRental);
+        const rental = await newRental(data);
+        res.status(201).send(rental);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -33,8 +40,7 @@ export const updateRental = async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body;
-        const rental = await Rental.findByPk(id);
-        const updatedRental = await rental.update(data);
+        const updatedRental = await setNewDataRental(id, data);
         res.status(200).send(updatedRental);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -44,7 +50,7 @@ export const updateRental = async (req, res) => {
 export const deleteRental = async (req, res) => {
     try {
         const { id } = req.params;
-        await Rental.destroy({ where: { id } });
+        await removeRental(id);
         return res.sendStatus(204);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -21,7 +21,7 @@ export const User = sequelize.define('users', {
         allowNull: false,
     },
     number_document: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     nationality: {
@@ -33,7 +33,7 @@ export const User = sequelize.define('users', {
         allowNull: false,
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     email: {

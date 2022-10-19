@@ -14,6 +14,10 @@ export const getUser = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findByPk(id);
+        delete user.dataValues['id'];
+        delete user.dataValues['fk_user'];
+        delete user.dataValues['createdAt'];
+        delete user.dataValues['updatedAt'];
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,7 +27,7 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
     try {
         const data = req.body;
-        const newUser = await User.bulkCreate(data);
+        const newUser = await User.create(data);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ message: error.message });

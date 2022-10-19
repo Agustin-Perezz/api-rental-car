@@ -16,11 +16,11 @@ export const Car = sequelize.define('cars', {
         allowNull: false,
     },
     year: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     kilometers: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     color: {
@@ -28,20 +28,23 @@ export const Car = sequelize.define('cars', {
         allowNull: false,
     },
     air_conditioning: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: false,
     },
     passengers: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     type_tranmision: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    fk_user: {
+    unit_price: {
         type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    fk_user: {
+        type: DataTypes.INTEGER,
     },
 });

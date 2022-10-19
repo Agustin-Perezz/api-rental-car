@@ -25,6 +25,35 @@ export const Rental = sequelize.define('rental', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    payment_method: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    payment: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    brand_car: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    model_car: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+
     date_start: {
         type: DataTypes.DATE,
         allowNull: false,
