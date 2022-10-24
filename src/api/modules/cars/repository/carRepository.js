@@ -6,7 +6,9 @@ export const getAll = async () => {
 };
 
 export const getById = async (idCar) => {
-    const carInstance = await Car.findByPk(idCar);
+    const carInstance = await Car.findByPk(idCar, {
+        attributes: { exclude: ['id', 'fk_user', 'createdAt', 'updatedAt'] },
+    });
     if (!carInstance) {
         throw new Error(
             `The car whit id ${idCar} not exist, maybe te car has been wiped`

@@ -1,6 +1,8 @@
+import dateFormat, { masks } from 'dateformat';
 import { sequelize } from '../../../database/database.js';
 import { Car } from '../../cars/models/Car.js';
 import { User } from '../../users/models/User.js';
+import { transformDate } from '../helper/transformDate.js';
 import { Rental } from '../model/Rental.js';
 
 export const getAllRentals = async () => {
@@ -30,30 +32,24 @@ export const getAllRentals = async () => {
 };
 
 export const getRentalById = async (idRental) => {
-    const rental = await Rental.findByPk(idRental, {
-        attributes: {
-            // exclude: ['createdAt', 'updatedAt'],
-            include: [
-                [
-                    sequelize.fn(
-                        'DATE_FORMAT',
-                        sequelize.col('date_start'),
-                        '%d-%m-%Y %H:%i'
-                    ),
-                    'date_start_format',
-                ],
-                [
-                    sequelize.fn(
-                        'DATE_FORMAT',
-                        sequelize.col('date_end'),
-                        '%d-%m-%Y %H:%i'
-                    ),
-                    'date_end_format',
-                ],
-            ],
-        },
-    });
-    return rental;
+    const rental = await Rental.findByPk(idRental);
+    rental.dataValues.createdAt = dateFormat(
+        rental.createdAt,
+        'dddd, mmmm dS, yyyy, h:MM:ss TT'
+    );
+    rental.dataValues.updatedAt = dateFormat(
+        rental.updatedAt,
+        'dddd, mmmm dS, yyyy, h:MM:ss TT'
+    );
+    const date_start_format = dateFormat(
+        rental.dataValues.date_start,
+        'm/d/yy h:MM TT'
+    );
+    const date_end_format = dateFormat(
+        rental.dataValues.date_end,
+        'm/d/yy h:MM TT'
+    );
+    return { ...rental.dataValues, date_start_format, date_end_format };
 };
 
 export const newRental = async (data) => {

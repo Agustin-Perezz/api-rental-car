@@ -13,11 +13,9 @@ export const getUsers = async (req, res) => {
 export const getUser = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await User.findByPk(id);
-        delete user.dataValues['id'];
-        delete user.dataValues['fk_user'];
-        delete user.dataValues['createdAt'];
-        delete user.dataValues['updatedAt'];
+        const user = await User.findByPk(id, {
+            attributes: ['id', 'fk_user', 'createdAt', 'updatedAt'],
+        });
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -10,10 +10,6 @@ export const getCar = async (req, res) => {
     try {
         const { id } = req.params;
         const car = await getById(id);
-        delete car.dataValues['id'];
-        delete car.dataValues['fk_user'];
-        delete car.dataValues['createdAt'];
-        delete car.dataValues['updatedAt'];
         res.status(200).send(car);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -10,7 +10,6 @@ export const getRental = async (req, res) => {
     try {
         const { id } = req.params;
         const rental = await getRentalById(id);
-        console.log(rental);
         res.status(200).send(rental);
     } catch (error) {
         res.status(500).json({ message: error.message });
