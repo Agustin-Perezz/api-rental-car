@@ -48,8 +48,8 @@ export const updateRental = async (req, res) => {
 
 export const deleteRental = async (req, res) => {
     try {
-        const { id } = req.params;
-        await removeRental(id);
+        const { idRental, idCar } = req.params;
+        await removeRental(idRental, idCar);
         return res.sendStatus(204);
     } catch (error) {
         res.status(500).json({ message: error.message });

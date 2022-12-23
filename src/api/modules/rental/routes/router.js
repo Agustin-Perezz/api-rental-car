@@ -13,6 +13,6 @@ router.get('/:id', getRental);
 router.get('/', getRentals);
 router.post('/', createRental);
 router.put('/:id', updateRental);
-router.delete('/:id', deleteRental);
+router.delete('/:idRental', deleteRental);
 
 export default router;

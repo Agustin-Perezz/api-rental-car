@@ -27,7 +27,9 @@ export const update = async (idCar, data) => {
     if (!car) {
         throw new Error(`The char whit id ${idCar} not exist`);
     }
+    console.log('DATA: ', data);
     const carUpdated = await car.update(data);
+    console.log(carUpdated.dataValues);
     return carUpdated;
 };
 

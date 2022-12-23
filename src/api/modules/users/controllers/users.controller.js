@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 import { Car } from '../../cars/models/Car.js';
 import { User } from '../models/User.js';
 
@@ -14,7 +15,7 @@ export const getUser = async (req, res) => {
     try {
         const { id } = req.params;
         const user = await User.findByPk(id, {
-            attributes: ['id', 'fk_user', 'createdAt', 'updatedAt'],
+            attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
         });
         res.status(200).json(user);
     } catch (error) {
@@ -57,10 +58,9 @@ export const deleteUser = async (req, res) => {
 export const getUserTasks = async (req, res) => {
     try {
         const { id } = req.params;
-        // alternativa
-        // const task = await Car.findAll({ where: { fk_user: id } });
-        const test = await User.findByPk(id, { include: Car });
-        res.status(200).send(test);
+        const userCars = await User.findByPk(id, { include: Car });
+
+        res.status(200).send(userCars);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
